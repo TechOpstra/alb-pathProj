@@ -134,9 +134,13 @@ module "register_tg" {
 
 module "alb" {
   source                  = "./modules/alb"
-  name                    = "example-alb"
+  name                    = "example-alb"  # Ensure this matches var.name in alb module
   security_groups         = [module.security_group.security_group_id]
-  subnets                 = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id, module.public_subnet_3.subnet_id]
+  subnets                 = [
+    module.public_subnet_1.subnet_id,
+    module.public_subnet_2.subnet_id,
+    module.public_subnet_3.subnet_id
+  ]
   default_target_group_arn = module.homepage_tg.target_group_arn
 }
 
